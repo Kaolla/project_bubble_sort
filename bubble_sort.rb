@@ -1,12 +1,12 @@
 def bubble_sort(array)
-  swap = true
+  sorted = false
 
-  while swap do
-    swap = false
+  while !sorted
+    sorted = true
     for i in 1...array.length do
       if array[i] < array[i-1]
         array[i], array[i-1] = array[i-1], array[i]
-        swap = true
+        sorted = false
       end
     end
   end
@@ -14,24 +14,24 @@ def bubble_sort(array)
   puts array.inspect
 end
 
-bubble_sort([8, 6, 7, 2, 6, 9, 5, 2, 4, 2, 3, 7, 8, 1 ,6])
+bubble_sort([8, 6, 7, 6, 5, 9, 4, 1, 6, 5, 7, 9, 4, 3])
 
 
 def bubble_sort_by(array)
-  swap = true
+  sorted = false
 
-  while swap do
-    swap = false
-    for i in 1...array.length
-      if yield(array[i], array[i-1]) < 0
+  while !sorted
+    sorted = true
+    for i in 1...array.length do
+    	if yield(array[i], array[i-1]) < 0 
         array[i], array[i-1] = array[i-1], array[i]
-        swap = true
+        sorted = false
       end
     end
   end
+
   puts array.inspect
 end
-    
-    
-bubble_sort_by(["foo", "bar?", "baaaaaar", "fooo?", "foobar!!"]) {|second, first| 
-second.length - first.length}
+
+to_sort = ["foo", "bar?", "fooooo?", "BAR!", "FOOBAR !!!!"]
+bubble_sort_by(to_sort) { |second, first| second.length - first.length }
